@@ -8,6 +8,7 @@ const Home: NextPage = () => {
   const [images, setImages] = React.useState(null) as any;
   const [isLoading, setLoading] = React.useState<boolean>(false);
   const [description, setDescription] = React.useState<string | null>(null);
+  const [currImageDesc, setCurrImageDesc] = React.useState<string | null>(null);
   const fetchGeneratedArt = async (desc: string) => {
     console.log("Generating....");
     setLoading(true);
@@ -34,7 +35,13 @@ const Home: NextPage = () => {
 
   const handleGenerateArt = () => {
     if (!description) return;
+    setCurrImageDesc(description);
     fetchGeneratedArt(description);
+  };
+
+  const handleGenerateArtAgain = () => {
+    if (!currImageDesc) return;
+    fetchGeneratedArt(currImageDesc);
   };
 
   useEffect(() => {
@@ -77,20 +84,46 @@ const Home: NextPage = () => {
                 className="h-full w-24 px-3 bg-[#111526] rounded-full flex justify-center items-center cursor-pointer transition hover:shadow-lg"
               >
                 <span className="text-white">
-                  {isLoading ? "Loading..." : "Generate"}
+                  {isLoading ? "Loading..." : "Create"}
                 </span>
               </button>
             </div>
           </div>
         </div>
-        {images && (
-          <div className="bg-gray-100 rounded-lg w-[29rem] h-[29rem] transform translate-y-44 relative">
-            <Image src={images.url} alt="Art" fill className="rounded-md" />
-            <div className="absolute w-full h-full -z-10 blur-2xl opacity-70">
-              <Image src={images.url} alt="Art" fill />
-            </div>
+
+        <div className="bg-white/10 rounded-lg w-[29rem] h-[29rem] transform translate-y-44 relative flex justify-center items-center backdrop-blur-3xl shadow-md">
+          {images && (
+            <>
+              <Image src={images.url} alt="Art" fill className="rounded-md" />
+              <div className="absolute w-full h-full -z-10 blur-3xl opacity-80">
+                <Image src={images.url} alt="Art" fill />
+              </div>
+              <div className="absolute bottom-0 left-0 w-full h-20 bg-white/10 backdrop-blur-lg rounded-b-md flex justify-center items-center">
+                <button
+                  onClick={handleGenerateArtAgain}
+                  className="bg-[#111526] text-white px-3 py-2 rounded-full hover:shadow-lg"
+                >
+                  Create Again
+                </button>
+              </div>
+            </>
+          )}
+          <div className="font-black text-5xl text-center text-[#111526]">
+            YOUR
+            <br />
+            ART
           </div>
-        )}
+          {isLoading && (
+            <>
+              <div className="w-full h-1 bg-white z-50 absolute animationGenerate left-0 rounded-full shadow-2xl shadow-white flex items-center justify-center">
+                <div className="bg-white text-sm px-2 rounded-full text-gray-600">
+                  Generating...
+                </div>
+              </div>
+              <div className="absolute z-40 w-full h-full top-0 left-0 bg-linear rounded-md"></div>
+            </>
+          )}
+        </div>
       </header>
       <main className="mx-auto container mt-10">
         <h1 className="font-bold text-gray-800 text-2xl">Recent Arts</h1>
