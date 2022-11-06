@@ -16,14 +16,14 @@ const generateImage = async (req: any, res: any) => {
     await openai
       .createImage({
         prompt: `${description}`,
-        n: 2,
+        n: 1,
         size: "1024x1024",
       })
       .then((result) => {
         console.log(result);
         return res.send({
           status: "Success",
-          image: result.data.data,
+          image: result.data.data[0],
         });
       });
   } catch (err) {

@@ -1,30 +1,54 @@
 import type { NextPage } from "next";
-import React from "react";
+import React, { useCallback } from "react";
 import Head from "next/head";
 import Image from "next/image";
 import { useEffect } from "react";
 
 const Home: NextPage = () => {
   const [images, setImages] = React.useState(null) as any;
-  const fetchGeneratedImage = async () => {
-    console.log("Fetching....");
+  const [isLoading, setLoading] = React.useState<boolean>(false);
+  const [description, setDescription] = React.useState<string | null>(null);
+  const fetchGeneratedArt = async (desc: string) => {
+    console.log("Generating....");
+    setLoading(true);
     try {
       const res = await fetch("/api", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
+        body: JSON.stringify({
+          //url: profileUrl,
+          description: desc,
+        }),
       }).then((res) => res.json());
       console.log(res);
       setImages(res.image);
     } catch (err: any) {
       console.log(err);
+    } finally {
+      console.log("Generated!");
+      setLoading(false);
     }
+  };
+
+  const handleGenerateArt = () => {
+    if (!description) return;
+    fetchGeneratedArt(description);
   };
 
   useEffect(() => {
     // fetchGeneratedImage();
   }, []);
+
+  const hanldeInputChange = useCallback(
+    (e: any) => {
+      setDescription(e.target.value);
+    },
+    [description]
+  );
+
+  console.log(description);
 
   return (
     <div className="w-full min-h-screen">
@@ -45,14 +69,28 @@ const Home: NextPage = () => {
                 type="text"
                 placeholder="Dog in mars"
                 className="outline-none flex-1 pr-3"
+                onChange={hanldeInputChange}
               />
-              <div className="h-full w-24 px-3 bg-[#111526] rounded-full flex justify-center items-center cursor-pointer transition hover:shadow-lg">
-                <span className="text-white">Generate</span>
-              </div>
+              <button
+                disabled={isLoading || !description}
+                onClick={handleGenerateArt}
+                className="h-full w-24 px-3 bg-[#111526] rounded-full flex justify-center items-center cursor-pointer transition hover:shadow-lg"
+              >
+                <span className="text-white">
+                  {isLoading ? "Loading..." : "Generate"}
+                </span>
+              </button>
             </div>
           </div>
         </div>
-        <div className="bg-gray-100 rounded-lg w-[29rem] h-[29rem] transform translate-y-44"></div>
+        {images && (
+          <div className="bg-gray-100 rounded-lg w-[29rem] h-[29rem] transform translate-y-44 relative">
+            <Image src={images.url} alt="Art" fill className="rounded-md" />
+            <div className="absolute w-full h-full -z-10 blur-2xl opacity-70">
+              <Image src={images.url} alt="Art" fill />
+            </div>
+          </div>
+        )}
       </header>
       <main className="mx-auto container mt-10">
         <h1 className="font-bold text-gray-800 text-2xl">Recent Arts</h1>
