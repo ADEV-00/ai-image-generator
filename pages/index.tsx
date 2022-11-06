@@ -3,6 +3,8 @@ import React, { useCallback } from "react";
 import Head from "next/head";
 import Image from "next/image";
 import { useEffect } from "react";
+import Link from "next/link";
+import { saveAs } from "file-saver";
 
 const Home: NextPage = () => {
   const [images, setImages] = React.useState(null) as any;
@@ -57,6 +59,11 @@ const Home: NextPage = () => {
 
   console.log(description);
 
+  const handleDownloadImage = () => {
+    if (images) saveAs(images.url, "yourArt.png");
+    return;
+  };
+
   return (
     <div className="w-full min-h-screen">
       <Head>
@@ -98,12 +105,27 @@ const Home: NextPage = () => {
               <div className="absolute w-full h-full -z-10 blur-3xl opacity-80">
                 <Image src={images.url} alt="Art" fill />
               </div>
-              <div className="absolute bottom-0 left-0 w-full h-20 bg-white/10 backdrop-blur-lg rounded-b-md flex justify-center items-center">
+              <div className="absolute bottom-0 left-0 w-full h-20 bg-white/10 backdrop-blur-lg rounded-b-md flex justify-evenly items-center">
+                <Link href={images.url} legacyBehavior>
+                  <a
+                    className="px-3 py-2 rounded-full text-[#111526] border border-[#111526]"
+                    target="_blank"
+                  >
+                    Open
+                  </a>
+                </Link>
+
                 <button
                   onClick={handleGenerateArtAgain}
                   className="bg-[#111526] text-white px-3 py-2 rounded-full hover:shadow-lg"
                 >
                   Create Again
+                </button>
+                <button
+                  onClick={() => handleDownloadImage()}
+                  className="px-3 py-2 rounded-full text-[#111526] border border-[#111526]"
+                >
+                  Save
                 </button>
               </div>
             </>
