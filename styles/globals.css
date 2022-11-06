@@ -13,3 +13,31 @@ body {
   background-size: cover;
   background-repeat: no-repeat;
 }
+
+.bg-linear {
+  background: linear-gradient(180deg, #00ff85 0%, #7400e8 53.64%, #00d1ff 100%);
+  opacity: 0.58;
+}
+
+.animationGenerate {
+  animation: animationGenerating ease-in infinite;
+  animation-duration: 4s;
+}
+
+@keyframes animationGenerating {
+  0% {
+    top: 0;
+  }
+  50% {
+    top: 100%;
+  }
+  100% {
+    top: 0;
+  }
+}
+
+@keyframes animationBgGenerating {
+  0% {
+    transform: skewX();
+  }
+}
