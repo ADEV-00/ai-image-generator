@@ -31,7 +31,6 @@ const Home: NextPage = () => {
           description: desc,
         }),
       }).then((res) => res.json());
-      console.log(res);
       setImages(res.image);
       !recentImages
         ? setRecentImages([{ url: res.image.url, desc: desc }])
@@ -40,7 +39,7 @@ const Home: NextPage = () => {
             { url: res.image.url, desc: desc },
           ]);
     } catch (err: any) {
-      console.log(err);
+      console.log("Something went wrong!");
     } finally {
       setLoading(false);
     }

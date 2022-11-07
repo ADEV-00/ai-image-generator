@@ -5,6 +5,17 @@ const configuration = new Configuration({
 });
 const openai = new OpenAIApi(configuration);
 
+function makeid(length: number) {
+  var result = "";
+  var characters =
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+  var charactersLength = characters.length;
+  for (var i = 0; i < length; i++) {
+    result += characters.charAt(Math.floor(Math.random() * charactersLength));
+  }
+  return result;
+}
+
 const generateImage = async (req: any, res: any) => {
   const { description } = req.body;
   if (!description)
@@ -18,6 +29,7 @@ const generateImage = async (req: any, res: any) => {
         prompt: `${description}`,
         n: 1,
         size: "1024x1024",
+        user: makeid(10),
       })
       .then((result) => {
         console.log(result);
@@ -26,10 +38,10 @@ const generateImage = async (req: any, res: any) => {
           image: result.data.data[0],
         });
       });
-  } catch (err) {
+  } catch (err: any) {
     res.json({
       status: "Error",
-      err: err,
+      err: err?.message,
     });
   }
 };
