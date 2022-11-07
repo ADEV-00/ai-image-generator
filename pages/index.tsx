@@ -7,12 +7,17 @@ import Link from "next/link";
 import { saveAs } from "file-saver";
 import RecentImage from "../components/recentImage";
 
+interface Image {
+  url: string;
+  desc: string;
+}
+
 const Home: NextPage = () => {
-  const [images, setImages] = useState(null) as any;
+  const [images, setImages] = useState<Image | null>(null);
   const [isLoading, setLoading] = useState<boolean>(false);
   const [description, setDescription] = useState<string | null>(null);
   const [currImageDesc, setCurrImageDesc] = useState<string | null>(null);
-  const [recentImages, setRecentImages] = useState(null) as any;
+  const [recentImages, setRecentImages] = useState<Image[] | null>(null);
 
   const fetchGeneratedArt = async (desc: string) => {
     setLoading(true);
@@ -53,7 +58,7 @@ const Home: NextPage = () => {
   };
 
   const hanldeInputChange = useCallback(
-    (e: any) => {
+    (e: React.ChangeEvent<HTMLInputElement>) => {
       setDescription(e.target.value);
     },
     [description]
@@ -64,7 +69,7 @@ const Home: NextPage = () => {
     return;
   };
 
-  const handleSelectSavedImage = (image: any) => {
+  const handleSelectSavedImage = (image: Image) => {
     setImages(image);
     setCurrImageDesc(image.desc);
   };
@@ -166,9 +171,10 @@ const Home: NextPage = () => {
         <h1 className="font-bold text-gray-800 text-2xl mb-5">Recent Arts</h1>
         <div className="flex flex-row flex-wrap w-full lg:w-2/4 gap-5 mb-5">
           {recentImages &&
-            recentImages.reverse().map((item: any) => {
+            recentImages.reverse().map((item: Image, index: number) => {
               return (
                 <RecentImage
+                  key={index}
                   image={item}
                   handleSelect={handleSelectSavedImage}
                 />
