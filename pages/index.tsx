@@ -88,23 +88,23 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <header className="w-full min-h-[50vh] bg-header relative flex flex-row items-center justify-evenly">
-        <div className="flex items-center h-full">
-          <div className="flex-1 space-y-14 px-5">
+      <header className="w-full min-h-[50vh] bg-header relative flex flex-row items-center justify-evenly flex-wrap">
+        <div className="flex items-center h-full mb-10 mt-10 lg:mb-0 lg:mt-0">
+          <div className="flex-1 space-y-14 px-5 flex flex-col items-center">
             <div className="font-black text-3xl text-center text-white">
               CREATE YOUR DIGITAL ART
             </div>
-            <div className="w-full h-12 bg-white rounded-full p-1 outline outline-offset-8 outline-[2px] outline-white/10 flex flex-row justify-between items-center pl-5">
+            <div className="w-4/5 md:w-full h-12 bg-white rounded-full p-1 outline outline-offset-8 outline-[2px] outline-white/10 flex flex-row justify-between items-center pl-5">
               <input
                 type="text"
                 placeholder="Dog in mars"
-                className="outline-none flex-1 pr-3"
+                className="outline-none md:flex-1 md:pr-3 text-sm md:text-base max-w-[8rem] md:max-w-none"
                 onChange={hanldeInputChange}
               />
               <button
                 disabled={isLoading || !description}
                 onClick={handleGenerateArt}
-                className="h-full w-24 px-3 bg-[#111526] rounded-full flex justify-center items-center cursor-pointer transition hover:shadow-lg"
+                className="h-full text-sm md:text-base w-24 px-3 bg-[#111526] rounded-full flex justify-center items-center cursor-pointer transition hover:shadow-lg"
               >
                 <span className="text-white">
                   {isLoading ? "Loading..." : "Create"}
@@ -114,7 +114,7 @@ const Home: NextPage = () => {
           </div>
         </div>
 
-        <div className="bg-white/10 rounded-lg w-[29rem] h-[29rem] transform translate-y-44 relative flex justify-center items-center backdrop-blur-3xl shadow-md">
+        <div className="bg-white/10 rounded-lg w-72 h-72 sm:w-[29rem] sm:h-[29rem] lg:transform lg:translate-y-44 relative flex justify-center items-center backdrop-blur-3xl shadow-md mb-10 lg:mb-0">
           {images && (
             <>
               <Image src={images.url} alt="Art" fill className="rounded-md" />
@@ -162,9 +162,9 @@ const Home: NextPage = () => {
           )}
         </div>
       </header>
-      <main className="mx-auto container mt-10">
+      <main className="mx-auto container mt-10 pl-5 lg:pl-0">
         <h1 className="font-bold text-gray-800 text-2xl mb-5">Recent Arts</h1>
-        <div className="flex flex-row flex-wrap w-2/4 gap-5 mb-5">
+        <div className="flex flex-row flex-wrap w-full lg:w-2/4 gap-5 mb-5">
           {recentImages &&
             recentImages.reverse().map((item: any) => {
               return (
