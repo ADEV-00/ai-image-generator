@@ -90,7 +90,7 @@ const Home: NextPage = () => {
 
       <header className="w-full min-h-[50vh] bg-header relative flex flex-row items-center justify-evenly flex-wrap">
         <div className="flex items-center h-full mb-10 mt-10 lg:mb-0 lg:mt-0">
-          <div className="flex-1 space-y-14 px-5 flex flex-col items-center">
+          <div className="flex-1 space-y-14 px-5 flex flex-col items-center fade-in-down">
             <div className="font-black text-3xl text-center text-white">
               CREATE YOUR DIGITAL ART
             </div>

@@ -14,7 +14,7 @@ const RecentImage: React.FC<RecentImageProps> = ({ image, handleSelect }) => {
   return (
     <button
       onClick={() => handleSelect(image)}
-      className="w-32 h-32 lg:w-40 lg:h-40 rounded-md overflow-hidden shadow-lg relative"
+      className="w-32 h-32 lg:w-40 lg:h-40 rounded-md overflow-hidden shadow-lg relative transition-right"
     >
       <div className="w-full h-full absolute top-0 transition-all ease-linear bg-[#111526]/40 backdrop-blur-sm z-50 flex justify-center items-center opacity-0 hover:opacity-100">
         <div className="px-3 py-2 border font-bold text-white border-white rounded-full">
