@@ -1,5 +1,7 @@
 # AI ART GENERATOR
 
+## <a href="https://ai-image-generator-six.vercel.app/">DEMO</a>
+
 <h3>Create your Digital ART and Images by telling AI what do you want.</h3>
 <p>You simply enter a text prompt and our AI transforms your words into works of art.</p>
 <p>AI powered by <a href="https://openai.com/" target="_blank">OPENAI API</a> </p>
@@ -11,10 +13,8 @@
 
 ![AI ART GENERATOR Mockup (Mockup)](https://user-images.githubusercontent.com/53909124/200269933-0819b000-3dbb-4fa6-9f6f-dfe332efad30.png)
 
-
 ```bash
 npm run dev
 # or
 yarn dev
 ```
-
