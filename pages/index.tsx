@@ -181,6 +181,14 @@ const Home: NextPage = () => {
             })}
         </div>
       </main>
+      <footer className="w-full flex justify-center items-center text-gray-700 dark:text-gray-300 flex-col fade-in-down-delay-2 font-bold my-5">
+        <Link href="https://github.com/ADEV-00" legacyBehavior>
+          <a target="_blank">
+            Made by <span className="text-teal-500 font-black">ADEV</span>
+          </a>
+        </Link>
+        <div></div>
+      </footer>
     </div>
   );
 };
